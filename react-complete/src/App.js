@@ -5,9 +5,9 @@ import Person from './Person/Person';
 const app = props => {
   const [personsState, setPersonsState] = useState({
       persons: [
-        {name: 'Max', age: 28},
-        {name: 'Manu', age: 29},
-        {name: 'Stephanie', age: 26}
+        {id: 'eaklc', name: 'Max', age: 28},
+        {id: 'lojac', name: 'Manu', age: 29},
+        {id: 'qockl', name: 'Stephanie', age: 26}
       ],
       otherState: 'some other value'
     }
@@ -31,12 +31,23 @@ const app = props => {
     ]});
   }
 
-  const nameChangedHandler = event => {
-    setPersonsState({persons: [
-      {name: 'Max', age: 28},
-      {name: event.target.value, age: 29},
-      {name: 'Stephanie', age: 27}
-    ]});
+  const nameChangedHandler = (id, event) => {
+    const personIndex = personsState.persons.findIndex(p => {
+      return p.id === id;
+    });
+
+    const person =  {
+      ...personsState.persons[personIndex]
+    };
+
+    //const person = Object.assign({}, personsState.persons[personIndex]);
+
+    person.name = event.target.value;
+
+    const persons = [...personsState.persons];
+    persons[personIndex] = person;
+
+    setPersonsState({persons: persons});
   }
 
   const style = {
@@ -55,7 +66,7 @@ const app = props => {
   }
 
   const deletePersonHandler = index => {
-    const persons = personsState.persons;
+    const persons = [...personsState.persons];
     persons.splice(index, 1);
     setPersonsState({persons});
   }
@@ -65,7 +76,8 @@ const app = props => {
     persons = (
       <div>
         {personsState.persons.map((person, index) => {
-          return <Person name={person.name} age ={person.age} changed={nameChangedHandler.bind(this)} click={deletePersonHandler.bind(this, index)} />
+          return <Person name={person.name} age ={person.age} changed={nameChangedHandler.bind(this, person.id)} click={deletePersonHandler.bind(this, index)}
+          key={person.id}/>
         })}
       </div>
     );
