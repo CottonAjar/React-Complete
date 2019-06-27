@@ -5,7 +5,7 @@ const CharComponent = props => {
     var text = props.text;
 
     return (
-        <div className="CharComponent">
+        <div className="CharComponent" onClick={props.click}>
             {text}
         </div>
     );

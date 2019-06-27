@@ -22,14 +22,22 @@ class App extends Component {
     this.setState({length: length, word: word, ar: ar});
   }
 
+  deleteChangeHandler = index => {
+    var word = {...this.state.word};
+    //console.log(word[index]);
+    word[index] = null;
+    console.log(word);
+    //this.setState({word: word});
+  }
+
   render() {
     return (
       <div className="App">
-        <input type="text" onChange={(event) => this.changeHandler(event)} />
+        <input type="text" value={this.state.word} onChange={(event) => this.changeHandler(event)} />
         <p>{this.state.length}</p>
         <ValidationComponent length={this.state.length} />
-        {this.state.ar.map((ch) => {
-          return <CharComponent text={ch} />
+        {this.state.ar.map((ch, index) => {
+          return <CharComponent text={ch} click={this.deleteChangeHandler.bind(this, index)} />
         })}
       </div>
     );
