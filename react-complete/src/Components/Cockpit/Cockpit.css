@@ -1,8 +1,5 @@
-.Cockpit {
-    text-align: center;
-  }
-  
-  .red {
+
+.red {
     color: red;
   }
   
@@ -15,6 +12,7 @@
     padding: 16px;
     background-color: green;
     font: inherit;
+    color: white;
     cursor: pointer;
   }
   
@@ -24,7 +22,7 @@
   }
   
   .Cockpit button.Red {
-    background-color: Red;
+    background-color: red;
   }
   
   .Cockpit button.Red:hover {
